@@ -1,0 +1,30 @@
+1: Fix data being sent to api server from React(COMPLETE)
+ 
+2: Handle restricting access to site based on whether a user is logged in or not
+
+3: Implement creating an account
+
+4: Implement leaving a review
+
+5: Implement providing for a new company page
+
+6: Implement searching for a company
+	* Autocompleting search field with companies in database
+	* Having the search box take you to the company/companyid page
+
+7: Implement viewing a company page
+
+8: Implement autocomplete.
+
+Rust: B56357
+Mint: B4DBC0
+Slate: EAE3EA
+Sea Foam: A7B3A5
+
+Butter: FEDC3D
+Peach: FEA680
+
+Cerulean: 4484CE
+Tangerine: F19F4D
+
+Pea: A4D555
