@@ -10,6 +10,22 @@ export default class HomeNavbar extends Component {
   }
 
   render() {
+
+    const buttons = sessionStorage.getItem("user") ? (
+      <Navbar.Form pullRight>
+        <Button bsStyle="primary" className="login-button" href="/login">Logout</Button>
+      </Navbar.Form>
+    ) : (
+      <div>
+        <Navbar.Form pullRight>
+          <Button bsStyle="success" className="signup-button" href="/signup">Sign Up</Button>
+        </Navbar.Form>
+        <Navbar.Form pullRight>
+          <Button bsStyle="primary" className="login-button" href="/login">Login</Button>
+        </Navbar.Form>
+      </div>
+    );
+
     return (
       <Navbar inverse collapseOnSelect className="home-navbar">
         <Navbar.Header>
@@ -19,12 +35,7 @@ export default class HomeNavbar extends Component {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Navbar.Form pullRight>
-            <Button bsStyle="success" className="signup-button" href="/signup">Sign Up</Button>
-          </Navbar.Form>
-          <Navbar.Form pullRight>
-            <Button bsStyle="primary" className="login-button" href="/login">Login</Button>
-          </Navbar.Form>
+          { buttons }
         </Navbar.Collapse>
       </Navbar>
     );

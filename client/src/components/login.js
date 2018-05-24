@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Col, Checkbox, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../style.css';
 
@@ -35,6 +35,7 @@ export default class Login extends Component {
     axios.post('/api/auth', user)
       .then(res => {
         if (res.data.auth) {
+          sessionStorage.setItem("user", res.data.email);
           this.props.history.push('/');
         }
         else {
@@ -84,19 +85,13 @@ export default class Login extends Component {
 
           <FormGroup>
             <Col smOffset={3} sm={6}>
-              <Checkbox>Remember me</Checkbox>
-            </Col>
-          </FormGroup>
-
-          <FormGroup>
-            <Col smOffset={3} sm={6}>
               <Button block type="submit" disabled={!this.validateForm()} bsStyle="danger">
                 Sign in
               </Button>
             </Col>
           </FormGroup>
 
-        </Form>;
+        </Form>
 
         <Col smOffset={4} sm={4} className="login-footer">
           <Link to="/signup" textalign="center">Or create a new account</Link>

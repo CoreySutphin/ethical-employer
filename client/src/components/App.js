@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import logo from '../logo.svg';
 
 import Home from './home';
@@ -11,6 +11,13 @@ import User from './user';
 import SignUp from './signUp';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: false
+    };
+  }
+
   render() {
     return (
       <div>
@@ -19,7 +26,11 @@ class App extends Component {
             <Route exact path='/' component={Home}/>
             <Route path='/company' component={Company}/>
             <Route path='/login' component={Login}/>
-            <Route path='/newcompany' component={NewCompany}/>
+            <Route path='/newcompany' render={(props) => (
+              sessionStorage.getItem("user")
+                ? <NewCompany {...props}/>
+                : <Redirect to="/login" push />
+            )}/>
             <Route path='/search' component={Search}/>
             <Route path='/user' component={User}/>
             <Route path='/signup' component={SignUp}/>

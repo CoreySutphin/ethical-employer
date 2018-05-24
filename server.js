@@ -30,7 +30,7 @@ app.post('/api/auth', (req, res) => {
     // test a matching password
     user.comparePassword(password, function(err, isMatch) {
         if (err) throw err;
-        res.json({ auth: isMatch });
+        res.json({ auth: isMatch, email: userEmail });
     });
   });
 });
