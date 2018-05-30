@@ -8,7 +8,7 @@ Yarn version:
   1.5.1
 
 Node version: 
-  9.9.0
+  9.11.1
 
 Platform: 
   linux x64
@@ -19,17 +19,21 @@ npm manifest:
     "version": "0.1.0",
     "private": true,
     "dependencies": {
+      "axios": "^0.18.0",
+      "rc-progress": "^2.2.5",
       "react": "^16.2.0",
-      "react-dom": "^16.2.0",
-      "react-router": "^4.2.0",
-      "react-scripts": "1.1.1"
+      "react-bootstrap": "^0.32.1",
+      "react-dom": "^16.3.0",
+      "react-router-dom": "^4.2.2",
+      "react-scripts": "^1.1.1"
     },
     "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
       "test": "react-scripts test --env=jsdom",
       "eject": "react-scripts eject"
-    }
+    },
+    "proxy": "http://localhost:5000/"
   }
 
 yarn manifest: 
@@ -7269,10 +7273,10 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 127
+  Exit code: 1
   Command: sh
   Arguments: -c react-scripts start
-  Directory: /home/corey/Workspace/ethic/client
+  Directory: /home/corey/Workspace/ethical-employer/client
   Output:
   
       at ProcessTermError.MessageError (/usr/lib/node_modules/yarn/lib/cli.js:186:110)

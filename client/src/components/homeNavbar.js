@@ -1,20 +1,38 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import { Navbar, Button, Nav, NavItem } from 'react-bootstrap';
 import Login from './login';
-import style from "../style.css"
+import "../style.css"
 
 export default class HomeNavbar extends Component {
   constructor(props) {
     super(props);
 
+    this.handleLogoutButtonClick = this.handleLogoutButtonClick.bind(this);
+  }
+
+  handleLogoutButtonClick() {
+    sessionStorage.removeItem("user");
   }
 
   render() {
 
     const buttons = sessionStorage.getItem("user") ? (
-      <Navbar.Form pullRight>
-        <Button bsStyle="primary" className="login-button" href="/login">Logout</Button>
-      </Navbar.Form>
+      <div>
+        <Navbar.Form pullRight>
+          <Button bsStyle="primary" className="login-button"
+            onClick={this.handleLogoutButtonClick} href="/">Logout</Button>
+        </Navbar.Form>
+        <Nav pullRight>
+          <NavItem eventKey={1} className="nav-item" href="/review">
+            <span className="nav-item-text">Leave a review</span>
+          </NavItem>
+        </Nav>
+        <Nav pullRight>
+          <NavItem eventKey={2} className="nav-item" href="/account">
+            <span className="nav-item-text">My Account</span>
+          </NavItem>
+        </Nav>
+      </div>
     ) : (
       <div>
         <Navbar.Form pullRight>

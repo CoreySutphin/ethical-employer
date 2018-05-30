@@ -11,6 +11,7 @@ const CompanySchema = new Schema ({
     balance: Number,
     advancement_opp: Number
   },
+  total_reviews: Number,
   links: [{url: String, date: Date}]
 });
 

@@ -37,6 +37,12 @@ body {
   border-color: #DB8025;
   box-shadow: none;
 }
+.nav-item:hover {
+  background-color: #EAE3EA;
+}
+.nav-item-text {
+  color: black;
+}
 .home {
   min-width: 480px;
   height: 100vh;
@@ -124,6 +130,25 @@ input {
   margin: 0 auto;
   max-width: 320px;
 }
-.submit-button {
-
+.company {
+  min-width: 480px;
+  height: 100vh;
+  background-color: #EAE3EA;
+  color: black;
+}
+.account {
+  min-width: 480px;
+  height: 100vh;
+  background-color: #EAE3EA;
+  color: black;
+}
+.review {
+  min-width: 480px;
+  height: 100vh;
+  background-color: #EAE3EA;
+  color: black;
+}
+.review-box {
+  border: 2px solid black;
+  background-color: white;
 }

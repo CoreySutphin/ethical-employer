@@ -34,8 +34,8 @@ export default class Login extends Component {
 
     axios.post('/api/auth', user)
       .then(res => {
-        if (res.data.auth) {
-          sessionStorage.setItem("user", res.data.email);
+        if (res.data.user) {
+          sessionStorage.setItem("user", res.data.user);
           this.props.history.push('/');
         }
         else {
@@ -43,7 +43,7 @@ export default class Login extends Component {
             password: ""
           });
         }
-      })
+      });
   }
 
   render() {

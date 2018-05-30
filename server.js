@@ -18,7 +18,7 @@ mongoose.connect('mongodb://corey:admin@ds229609.mlab.com:29609/ethical_employer
   console.log('Successfully connected to MongoDB');
 });
 
-// Handles when a user attempts authentication, checks the password against the hased password in DB
+// Handles when a user attempts authentication, checks the password against the hashed password in DB
 app.post('/api/auth', (req, res) => {
   let userEmail = req.body.email;
   let password = req.body.password;
@@ -30,7 +30,7 @@ app.post('/api/auth', (req, res) => {
     // test a matching password
     user.comparePassword(password, function(err, isMatch) {
         if (err) throw err;
-        res.json({ auth: isMatch, email: userEmail });
+        res.json({ user: user.email });
     });
   });
 });
@@ -52,6 +52,32 @@ app.get('/api/companies', (req, res) => {
   CompanySchema.find({}, (err, result) => {
     if (err) throw error;
     res.json(result);
+  });
+});
+
+// Matches a specific company based on its 'tag', which should just be the company name
+app.get(/^\/api\/companies\/(.+)/, (req, res) => {
+  var companyString = req.params[0];
+  CompanySchema.findOne({ tag: companyString }, function(err, company) {
+    res.json({companyData: company});
+  });
+});
+
+// Adds a new review for a company
+app.post('/api/companies', (req, res) => {
+  CompanySchema.findOne({ tag: req.body.tag }, function(err, company) {
+    var newRatings = company.ratings;
+    var totalReviews = company.total_reviews + 1;
+    newRatings.inclusiveness += req.body.inclusiveness;
+    newRatings.compensation += req.body.compensation;
+    newRatings.balance += req.body.balance;
+    newRatings.advancement_opp += req.body.advancement_opp;
+
+    CompanySchema.findOneAndUpdate({ tag: req.body.tag }, { ratings: newRatings, total_reviews: totalReviews },
+       function(err, doc) {
+      if (err) return res.send(500, { error: err });
+      return res.send("succesfully saved");
+    });
   });
 });
 
