@@ -1,6 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const PythonShell = require('python-shell');
+const NodeCache = require( "node-cache" );
+
+var myCache = new NodeCache();
 var UserSchema = require('./models/userSchema');
 var CompanySchema = require('./models/companySchema');
 
@@ -80,5 +84,49 @@ app.post('/api/companies', (req, res) => {
     });
   });
 });
+
+// Add a new company to the site, verifies the company exists(has a Twitter page) then creates their profile.
+app.post('/api/newcompany', (req, res) => {
+  
+}),
+
+/*
+ Collects information from tweets about the company.
+ If data is not cached for this company then run the script to collect the data.
+*/
+app.post('/api/twitter', (req, res) => {
+  let tag = req.body.tag;
+  myCache.get(tag, (err, value) => {
+    if (!err) {
+      // Company data is not cached
+      if (value == undefined) {
+        runTwitterAnalyzer(tag, function(data) {
+          myCache.set(tag, data, 86400);
+          res.send(data);
+        });
+      }
+      // Company data is cached
+      else {
+        res.send(value);
+      }
+    }
+  });
+});
+
+// Runs a python script to collect information about a company's twitter activity
+function runTwitterAnalyzer(tag, callback) {
+  var options = {
+    mode: 'text',
+    args: [tag]
+  };
+  PythonShell.run("./analytics/TwitterAnalyzer.py", options, function(err, results) {
+    if (err) throw err;
+    data = {
+      "sentimentData": JSON.parse(results[0]),
+      "popularTweet": results[1]
+    }
+    callback(data);
+  });
+}
 
 app.listen(port, () => console.log(`Listening on port ${port}`));

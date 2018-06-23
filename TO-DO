@@ -1,20 +1,12 @@
-1: Fix data being sent to api server from React(COMPLETE)
- 
-2: Handle restricting access to site based on whether a user is logged in or not(COMPLETE)
+* New company being added
+  - Validation of whether new company actually exists
+  - Adding them to database
 
-3: Implement creating an account(COMPLETE)
+* Fix design on company page
 
-4: Implement leaving a review
+* Design scheme for caching data
 
-5: Implement providing for a new company page
-
-6: Implement searching for a company
-	* Autocompleting search field with companies in database(COMPLETE)
-	* Having the search box take you to the company/companyid page
-
-7: Implement viewing a company page
-
-8: Implement autocomplete.(COMPLETE)
+* Publish to Heroku
 
 Rust: B56357
 Mint: B4DBC0

@@ -38,7 +38,8 @@ export default class Review extends Component {
 
   validateForm = () => {
     if (this.state.inclusivenessValue === 0 || this.state.compensationValue === 0
-       || this.state.balanceValue === 0 || this.state.advancementValue === 0 || this.state.company === "") {
+       || this.state.balanceValue === 0 || this.state.advancementValue === 0
+       || this.state.companyValue === "" || this.state.companyValue === "SELECT" ) {
       return false;
     } else {
       return true;
@@ -112,8 +113,9 @@ export default class Review extends Component {
 
   createCompanyOptions = () => {
     let options = [<option key={0} value="Select">Select</option>];
+    options.push(<option key = {1} value="New Company">New Company</option>);
     for (let i = 0; i < this.state.companies.length; i++) {
-      options.push(<option key={i+1} value={this.state.companies[i]}>{this.state.companies[i]}</option>);
+      options.push(<option key={i+2} value={this.state.companies[i]}>{this.state.companies[i]}</option>);
     }
     return options;
   }
@@ -121,7 +123,7 @@ export default class Review extends Component {
   render() {
 
     const labels = {
-      0: "Terrible",
+      1: "Terrible",
       5: "Average",
       10: "Outstanding"
     }

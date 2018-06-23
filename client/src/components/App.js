@@ -30,7 +30,7 @@ class App extends Component {
                 ? <Redirect to="/" />
                 : <Login {...props} />
             )}/>
-            <Route path='/newcompany' render={(props) => (
+            <Route exact path='/newcompany' render={(props) => (
               sessionStorage.getItem("user")
                 ? <NewCompany {...props} />
                 : <Redirect to="/login" />
