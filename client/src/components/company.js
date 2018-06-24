@@ -44,6 +44,17 @@ export default class Company extends Component {
 
   }
 
+  // As soon as the company's most popular tweet is loaded, embed it into the page
+  renderTweet = () => {
+    while (this.state.popularTweet === "") {
+      return;
+    }
+    document.getElementById("tweet-container").innerHTML = this.state.popularTweet.html;
+    window.twttr.widgets.load(
+      document.getElementById("tweet-container")
+    );
+  }
+
   render() {
 
     var avatarUrl = "https://avatars.io/twitter/" + this.state.companyData.tag + "/medium";
@@ -134,11 +145,11 @@ export default class Company extends Component {
 
         </Col>
 
-        <Col sm={6} style={{ border: "2px solid #EAE3EA" }}>
+        <Col sm={6} style={{ border: "2px solid #EAE3EA", paddingTop: "50px", height: "600px" }}>
 
           <div align="center">
-            <h3 align="center">From the past 100 tweets about { this.state.companyData.tag },
-              { this.state.sentimentData.positive } tweets were perceived as positive.</h3>
+            <h2 align="center">From the past 100 tweets about { this.state.companyData.tag },
+              { " " + this.state.sentimentData.positive } tweets were perceived as positive.</h2>
             <PieChart width={800} height={400}>
               <Pie isAnimationActive={false} data={data} dataKey={"value"} nameKey={"name"}
                 cx={200} cy={200} outerRadius={120} label/>
@@ -148,11 +159,13 @@ export default class Company extends Component {
 
         </Col>
 
-        <Col sm={6} style={{ border: "2px solid #EAE3EA" }}>
-
-          <div align="center">
-            <h2 align="center">{ this.state.popularTweet }</h2>
+        <Col sm={6} style={{ border: "2px solid #EAE3EA", paddingTop: "50px", height: "600px" }}>
+          <h2 align="center">Most popular tweet about { this.state.companyData.tag + " " }
+            from the past seven days.</h2>
+          <div align="center" id="tweet-container" className="tweet-container">
+            { this.renderTweet() }
           </div>
+
 
         </Col>
 

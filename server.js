@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const PythonShell = require('python-shell');
-const NodeCache = require( "node-cache" );
+const NodeCache = require('node-cache');
+const request = require('request');
 
 var myCache = new NodeCache();
 var UserSchema = require('./models/userSchema');
@@ -70,25 +71,29 @@ app.get(/^\/api\/companies\/(.+)/, (req, res) => {
 // Adds a new review for a company
 app.post('/api/companies', (req, res) => {
   CompanySchema.findOne({ tag: req.body.tag }, function(err, company) {
-    var newRatings = company.ratings;
-    var totalReviews = company.total_reviews + 1;
-    newRatings.inclusiveness += req.body.inclusiveness;
-    newRatings.compensation += req.body.compensation;
-    newRatings.balance += req.body.balance;
-    newRatings.advancement_opp += req.body.advancement_opp;
+    // This is a company not in the database, so check to make sure it's a valid company name then add it
+    if (!company) {
+      addNewCompany(req, function(results) {
+        return res.send(results);
+      });
+    }
+    // Company is in our database, so add the new review
+    else {
+      var newRatings = company.ratings;
+      var totalReviews = company.total_reviews + 1;
+      newRatings.inclusiveness += req.body.inclusiveness;
+      newRatings.compensation += req.body.compensation;
+      newRatings.balance += req.body.balance;
+      newRatings.advancement_opp += req.body.advancement_opp;
 
-    CompanySchema.findOneAndUpdate({ tag: req.body.tag }, { ratings: newRatings, total_reviews: totalReviews },
-       function(err, doc) {
-      if (err) return res.send(500, { error: err });
-      return res.send("succesfully saved");
-    });
+      CompanySchema.findOneAndUpdate({ tag: req.body.tag }, { ratings: newRatings, total_reviews: totalReviews },
+         function(err, doc) {
+        if (err) return res.send(500, { error: err });
+        return res.send("succesfully saved");
+      });
+    }
   });
 });
-
-// Add a new company to the site, verifies the company exists(has a Twitter page) then creates their profile.
-app.post('/api/newcompany', (req, res) => {
-  
-}),
 
 /*
  Collects information from tweets about the company.
@@ -123,9 +128,42 @@ function runTwitterAnalyzer(tag, callback) {
     if (err) throw err;
     data = {
       "sentimentData": JSON.parse(results[0]),
-      "popularTweet": results[1]
+      "popularTweet": JSON.parse(results[1])
     }
     callback(data);
+  });
+}
+
+// Checks if a new company actually exists by seeing if the username is available
+// If it does add it to the database
+function addNewCompany(req, callback) {
+  let companyTag = req.body.tag;
+  let companyTwitterUrl = "https://twitter.com/users/username_available?username=" + companyTag;
+  request.get(companyTwitterUrl, { json: true }, (err, res, body) => {
+    if (err) { throw err; }
+    // Username is taken so company exists
+    if (!body.value & body.reason != "invalid_username") {
+      console.log(companyTag + " Found!");
+      let companyInstance = new CompanySchema({
+        tag: req.body.tag,
+        ratings: {
+          inclusiveness: req.body.inclusiveness,
+          compensation: req.body.compensation,
+          balance: req.body.balance,
+          advancement_opp: req.body.advancement_opp
+        },
+        total_reviews: 1,
+        links: []
+      });
+      companyInstance.save(function(err) {
+        if (err) console.log(err);
+        else callback("Success");
+      });
+    }
+    else {
+      console.log(companyTag + " Not Found :C");
+      callback("Failure");
+    }
   });
 }
 

@@ -36,7 +36,13 @@ export default class Login extends Component {
       .then(res => {
         if (res.data.user) {
           sessionStorage.setItem("user", res.data.user);
-          this.props.history.push('/');
+          // If the user's previous location was passed along, send them back there.
+          if (this.props.location.state) {
+            this.props.history.push(this.props.location.state.prevPath);
+          }
+          else {
+            this.props.history.push("/");
+          }
         }
         else {
           this.setState({

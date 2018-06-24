@@ -19,17 +19,12 @@ export default class HomeNavbar extends Component {
     const buttons = sessionStorage.getItem("user") ? (
       <div>
         <Navbar.Form pullRight>
-          <Button bsStyle="primary" className="login-button"
-            onClick={this.handleLogoutButtonClick} href="/">Logout</Button>
+            <Button bsStyle="primary" className="login-button"
+              onClick={this.handleLogoutButtonClick} href="/">Logout</Button>
         </Navbar.Form>
         <Nav pullRight>
           <NavItem eventKey={1} className="nav-item" href="/review">
             <span className="nav-item-text">Leave a review</span>
-          </NavItem>
-        </Nav>
-        <Nav pullRight>
-          <NavItem eventKey={2} className="nav-item" href="/account">
-            <span className="nav-item-text">My Account</span>
           </NavItem>
         </Nav>
       </div>

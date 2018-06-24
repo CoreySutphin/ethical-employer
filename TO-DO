@@ -1,10 +1,9 @@
-* New company being added
-  - Validation of whether new company actually exists
-  - Adding them to database
-
-* Fix design on company page
-
 * Design scheme for caching data
+
+* Go over for bugs and potential misuse
+
+* Search functionality?  Filter by what companies care about and other params and show companies as "cards".
+  Kind of like Android's recycler view
 
 * Publish to Heroku
 

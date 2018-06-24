@@ -1,7 +1,7 @@
 # Corey Sutphin
 # A program to pull tweets about a company/subject and return various statistics on the results.
 # Performs sentiment analysis on the tweets and plots the results, also returns the most favorited tweet
-# in the past 7 days about the subject.
+# in the past 7 days about the subject in Oembed representation.
 
 import sys, os, re, json, twitter
 import pandas as pd
@@ -23,6 +23,11 @@ popular_query = "q=" + company + "%20&result_type=popular&lang=en&count=100"
 
 recent_results = api.GetSearch(raw_query = recent_query)
 popular_results = api.GetSearch(raw_query = popular_query)
+
+if (not recent_results):
+    print("");
+    print("");
+    sys.exit();
 
 # Returns a list of tweets with punctuation and stop list words removed
 def filter_tweets(tweets):
@@ -62,7 +67,11 @@ def sentiment_analysis(filtered_tweets):
 sentiment_data = sentiment_analysis(filter_tweets(recent_results))
 print(json.dumps(sentiment_data))
 
-# Finding the most favorited tweet out of the most popular recent tweets
+# Finding the most favorited tweet out of the most popular recent tweets, returns it in oembed format
 favorites_counts = [tweet.favorite_count for tweet in popular_results]
-most_popular_index = favorites_counts.index(max(favorites_counts))
-print(popular_results[most_popular_index].text.encode("utf-8"))
+if (favorites_counts):
+    most_popular_index = favorites_counts.index(max(favorites_counts))
+    most_popular_tweet_id = popular_results[most_popular_index].id;
+    print(json.dumps(api.GetStatusOembed(status_id = most_popular_tweet_id, omit_script = True, hide_media = True)));
+else:
+    print(json.dumps("Tweet Unavailable"))

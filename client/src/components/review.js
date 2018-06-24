@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Col, Row, Button, Form, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import MyNavbar from './homeNavbar';
 import Slider from 'react-rangeslider';
+import autoComplete from '../autoComplete.js'
 import 'react-rangeslider/lib/index.css';
 import '../style.css';
 
@@ -16,10 +17,12 @@ export default class Review extends Component {
       compensationValue: 0,
       balanceValue: 0,
       advancementValue: 0,
-      companyValue: ""
+      companyValue: "",
+      showAlert: false
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.autoComplete = autoComplete.bind(this);
   }
 
   componentDidMount() {
@@ -33,13 +36,14 @@ export default class Review extends Component {
         this.setState({
           companies: companyTags
         });
+        this.autoComplete(this.state.companies, "companyInput");
       });
   }
 
   validateForm = () => {
     if (this.state.inclusivenessValue === 0 || this.state.compensationValue === 0
        || this.state.balanceValue === 0 || this.state.advancementValue === 0
-       || this.state.companyValue === "" || this.state.companyValue === "SELECT" ) {
+       || this.state.companyValue === "") {
       return false;
     } else {
       return true;
@@ -59,11 +63,19 @@ export default class Review extends Component {
 
     axios.post('/api/companies', data)
       .then(res => {
-        this.props.history.push('/');
+        if (res.data === "Failure") {
+          this.setState({
+            showAlert: true
+          });
+          document.getElementById("companyInput").value = "";
+        }
+        else {
+          this.props.history.push('/');
+        }
       });
   }
 
-  handleDropdownChange = (e) => {
+  handleChange = (e) => {
     this.setState({
       companyValue: e.target.value
     });
@@ -120,6 +132,19 @@ export default class Review extends Component {
     return options;
   }
 
+  createAlert = () => {
+    while (!this.state.showAlert) {
+      return;
+    }
+
+    var errorMessage = "We couldn't find that company, try checking the spelling and capitilization.";
+    return (
+      <Alert bsStyle="danger">
+        <p align="center">{ errorMessage }</p>
+      </Alert>
+    );
+  }
+
   render() {
 
     const labels = {
@@ -128,14 +153,6 @@ export default class Review extends Component {
       10: "Outstanding"
     }
 
-    const companies = (
-      <Col sm={4} smOffset={4}>
-        <FormControl componentClass="select" placeholder="select" onChange={ this.handleDropdownChange }>
-          { this.createCompanyOptions() }
-        </FormControl>
-      </Col>
-    );
-
     return (
       <div className="review">
         <MyNavbar />
@@ -143,13 +160,22 @@ export default class Review extends Component {
         <Col sm={8} smOffset={2}>
           <div className="review-box">
 
+            { this.createAlert() }
+
             <h1 align="center">Leave a Review</h1>
 
-            <h3 align="center">Please choose the company you are reviewing</h3>
+            <h3 align="center">Please tell us the company you are reviewing</h3>
 
             <Row>
 
-              { companies }
+              <Col sm={4} smOffset={4}>
+                <form autoComplete="off">
+                  <div className="autocomplete" style={{ width: '300px', border: "1px solid gray", paddingTop: "0px"}}>
+                    <input id="companyInput" className="company-search-text" type="text"
+                      placeholder="Enter a company..." onChange={ this.handleChange }/>
+                  </div>
+                </form>
+              </Col>
 
             </Row>
 
@@ -246,7 +272,6 @@ export default class Review extends Component {
                 Submit Review
               </Button>
             </Form>
-
 
           </div>
         </Col>

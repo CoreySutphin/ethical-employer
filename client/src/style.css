@@ -152,3 +152,6 @@ input {
   border: 2px solid black;
   background-color: white;
 }
+.tweet-container {
+  padding-top: 25px;
+}
