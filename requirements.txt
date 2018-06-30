@@ -1,3 +1,4 @@
 numpy==1.14.0
 pandas==0.22.0
 textblob==0.15.1
+python-twitter==3.4.2
