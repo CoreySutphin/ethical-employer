@@ -160,7 +160,7 @@ export default class Company extends Component {
         </Col>
 
         <Col sm={6} style={{ border: "2px solid #EAE3EA", paddingTop: "50px", height: "600px" }}>
-          <h2 align="center">Most popular tweet about { this.state.companyData.tag + " " }
+          <h2 align="center">Most popular tweet involving { this.state.companyData.tag + " " }
             from the past seven days.</h2>
           <div align="center" id="tweet-container" className="tweet-container">
             { this.renderTweet() }
