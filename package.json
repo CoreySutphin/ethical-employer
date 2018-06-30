@@ -1,10 +1,22 @@
 {
-  "name": "Ethical Employer",
+  "name": "ethical-employer",
   "version": "1.0.0",
+  "description": "Site to review companies and get a feel for their values based on social media presence",
+  "engines": {
+    "node": "9.11.1"
+  },
   "scripts": {
-    "client": "cd client && yarn start",
-    "server": "nodemon server.js",
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CoreySutphin/ethical-employer.git"
   },
   "dependencies": {
     "bcrypt": "^1.0.3",
@@ -14,7 +26,12 @@
     "node-cache": "^4.2.0",
     "python-shell": "^0.5.0"
   },
-  "devDependencies": {
-    "concurrently": "^3.5.0"
-  }
+  "keywords": [
+    "node",
+    "react",
+    "employment",
+    "twitter"
+  ],
+  "license": "MIT",
+  "devDependencies": {}
 }
