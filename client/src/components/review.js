@@ -54,7 +54,7 @@ export default class Review extends Component {
     event.preventDefault();
 
     var data = {
-      tag: this.state.companyValue,
+      tag: document.getElementById("companyInput").value,
       inclusiveness: this.state.inclusivenessValue,
       compensation: this.state.compensationValue,
       balance: this.state.balanceValue,
@@ -121,15 +121,6 @@ export default class Review extends Component {
     } else {
       slider.slider.firstChild.style.backgroundColor = "green";
     }
-  }
-
-  createCompanyOptions = () => {
-    let options = [<option key={0} value="Select">Select</option>];
-    options.push(<option key = {1} value="New Company">New Company</option>);
-    for (let i = 0; i < this.state.companies.length; i++) {
-      options.push(<option key={i+2} value={this.state.companies[i]}>{this.state.companies[i]}</option>);
-    }
-    return options;
   }
 
   createAlert = () => {
