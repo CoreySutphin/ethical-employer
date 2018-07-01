@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, Col, Alert } from 'react-bootstrap';
+import { Col, Row, Grid, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import HomeNavbar from './homeNavbar';
-import Login from './login';
 import autoComplete from '../autoComplete.js';
 import '../style.css';
 
@@ -66,22 +65,34 @@ export default class Home extends Component {
       <div className="home">
         <HomeNavbar />
 
-        <Col smOffset={3} sm={6}>
-          <h1 className="home-header" align="center">Ethical Employer lets you see the true face of a company.</h1>
-          <h3 align='center'>Ethical Employer presents unbiased reviews of a company based on metrics
-            that matter.</h3>
-        </Col>
+        <Grid>
 
-        <Col smOffset={4} sm={4}>
-          <form autoComplete="off">
-            <div className="autocomplete" style={{width: '300px'}}>
-              <input id="companyInput" className="company-search-text" type="text" placeholder="Search for companies..."/>
-            </div>
-            <input type="button" onClick={ this.handleCompanySearchButtonClick }
-              value="Search" className="company-search-btn" style={{ width: "100px" }}/>
-          </form>
-          { this.createAlert() }
-        </Col>
+          <Row>
+
+            <Col xsOffset={2} xs={8} mdOffset={3} md={6}>
+              <h1 className="home-header" align="center">Ethical Employer lets you see the true face of a company.</h1>
+              <h3 align='center'>Ethical Employer presents unbiased reviews of a company based on metrics
+                that matter.</h3>
+            </Col>
+
+          </Row>
+
+          <Row>
+
+            <Col xsOffset={2} xs={8} mdOffset={4} md={4}>
+              <form autoComplete="off">
+                <div className="autocomplete" style={{ width: "75%" }}>
+                  <input id="companyInput" className="company-search-text" type="text" placeholder="Search for companies..."/>
+                </div>
+                <input type="button" onClick={ this.handleCompanySearchButtonClick }
+                  value="Search" className="company-search-btn" style={{ width: "25%" }}/>
+              </form>
+              { this.createAlert() }
+            </Col>
+
+          </Row>
+
+        </Grid>
       </div>
     );
   }

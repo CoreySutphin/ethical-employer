@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Row, Button, Form, FormGroup, FormControl, ControlLabel, Alert } from 'react-bootstrap';
+import { Col, Row, Grid, Button, Form, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import MyNavbar from './homeNavbar';
 import Slider from 'react-rangeslider';
@@ -148,124 +148,132 @@ export default class Review extends Component {
       <div className="review">
         <MyNavbar />
 
-        <Col sm={8} smOffset={2}>
-          <div className="review-box">
+        <Grid>
 
-            { this.createAlert() }
+          <Row>
 
-            <h1 align="center">Leave a Review</h1>
+            <Col xs={12} mdOffset={2} md={8}>
+              <div className="review-box">
 
-            <h3 align="center">Please tell us the company you are reviewing</h3>
+                { this.createAlert() }
 
-            <Row>
+                <h1 align="center">Leave a Review</h1>
 
-              <Col sm={4} smOffset={4}>
-                <form autoComplete="off">
-                  <div className="autocomplete" style={{ width: '300px', border: "1px solid gray", paddingTop: "0px"}}>
-                    <input id="companyInput" className="company-search-text" type="text"
-                      placeholder="Enter a company..." onChange={ this.handleChange }/>
-                  </div>
-                </form>
-              </Col>
+                <h3 align="center">Please tell us the company you are reviewing</h3>
 
-            </Row>
+                <Row>
 
-            <Row>
+                  <Col xsOffset={2} xs={8} mdOffset={4} md={4}>
+                    <form autoComplete="off">
+                      <div className="autocomplete" style={{ width: '100%', border: "1px solid gray", paddingTop: "0px"}}>
+                        <input id="companyInput" className="company-search-text" type="text"
+                          placeholder="Enter a company..." onChange={ this.handleChange }/>
+                      </div>
+                    </form>
+                  </Col>
 
-              <Col sm={4}>
-                <h3 align="center">Inclusiveness</h3>
-              </Col>
+                </Row>
 
-              <Col sm={4}>
-                <div>
-                  <Slider
-                    min={ 1 }
-                    max={ 10 }
-                    value={ this.state.inclusivenessValue }
-                    orientation="horizontal"
-                    labels={ labels }
-                    onChange={ this.handleInclusivenessSliderChange }
-                    ref="inclusivenessSlider"
-                  />
-                </div>
-              </Col>
+                <Row>
 
-            </Row>
+                  <Col xs={12} md={2} mdOffset={1}>
+                    <h3 align="center">Inclusiveness</h3>
+                  </Col>
 
-            <Row>
+                  <Col xsOffset={2} xs={8} md={5}>
+                    <div>
+                      <Slider
+                        min={ 1 }
+                        max={ 10 }
+                        value={ this.state.inclusivenessValue }
+                        orientation="horizontal"
+                        labels={ labels }
+                        onChange={ this.handleInclusivenessSliderChange }
+                        ref="inclusivenessSlider"
+                      />
+                    </div>
+                  </Col>
 
-              <Col sm={4}>
-                <h3 align="center">Compensation</h3>
-              </Col>
+                </Row>
 
-              <Col sm={4}>
-                <div>
-                  <Slider
-                    min={ 1 }
-                    max={ 10 }
-                    value={ this.state.compensationValue }
-                    orientation="horizontal"
-                    labels={ labels }
-                    onChange={ this.handleCompensationSliderChange }
-                    ref="compensationSlider"
-                  />
-                </div>
-              </Col>
+                <Row>
 
-            </Row>
+                  <Col xs={12} md={2} mdOffset={1}>
+                    <h3 align="center">Compensation</h3>
+                  </Col>
 
-            <Row>
+                  <Col xsOffset={2} xs={8} md={5}>
+                    <div>
+                      <Slider
+                        min={ 1 }
+                        max={ 10 }
+                        value={ this.state.compensationValue }
+                        orientation="horizontal"
+                        labels={ labels }
+                        onChange={ this.handleCompensationSliderChange }
+                        ref="compensationSlider"
+                      />
+                    </div>
+                  </Col>
 
-              <Col sm={4}>
-                <h3 align="center">Balance</h3>
-              </Col>
+                </Row>
 
-              <Col sm={4}>
-                <div>
-                  <Slider
-                    min={ 1 }
-                    max={ 10 }
-                    value={ this.state.balanceValue }
-                    orientation="horizontal"
-                    labels={ labels }
-                    onChange={ this.handleBalanceSliderChange }
-                    ref="balanceSlider"
-                  />
-                </div>
-              </Col>
+                <Row>
 
-            </Row>
+                  <Col xs={12} md={2} mdOffset={1}>
+                    <h3 align="center">Balance</h3>
+                  </Col>
 
-            <Row>
+                  <Col xsOffset={2} xs={8} md={5}>
+                    <div>
+                      <Slider
+                        min={ 1 }
+                        max={ 10 }
+                        value={ this.state.balanceValue }
+                        orientation="horizontal"
+                        labels={ labels }
+                        onChange={ this.handleBalanceSliderChange }
+                        ref="balanceSlider"
+                      />
+                    </div>
+                  </Col>
 
-              <Col sm={4}>
-                <h3 align="center">Advancement Opportunities</h3>
-              </Col>
+                </Row>
 
-              <Col sm={4}>
-                <div>
-                  <Slider
-                    min={ 1 }
-                    max={ 10 }
-                    value={ this.state.advancementValue }
-                    orientation="horizontal"
-                    labels={ labels }
-                    onChange={ this.handleAdvancementSliderChange }
-                    ref="advancementSlider"
-                  />
-                </div>
-              </Col>
+                <Row>
 
-            </Row>
+                  <Col xs={12} md={2} mdOffset={1}>
+                    <h3 align="center">Advancement Opportunities</h3>
+                  </Col>
 
-            <Form onSubmit={ this.handleSubmit }>
-              <Button block type="submit" disabled={!this.validateForm()} bsStyle="success">
-                Submit Review
-              </Button>
-            </Form>
+                  <Col xsOffset={2} xs={8} md={5}>
+                    <div>
+                      <Slider
+                        min={ 1 }
+                        max={ 10 }
+                        value={ this.state.advancementValue }
+                        orientation="horizontal"
+                        labels={ labels }
+                        onChange={ this.handleAdvancementSliderChange }
+                        ref="advancementSlider"
+                      />
+                    </div>
+                  </Col>
 
-          </div>
-        </Col>
+                </Row>
+
+                <Form onSubmit={ this.handleSubmit } style={{ paddingTop: "30px" }}>
+                  <Button block type="submit" disabled={!this.validateForm()} bsStyle="success" style={{ height: "50px" }}>
+                    Submit Review
+                  </Button>
+                </Form>
+
+              </div>
+            </Col>
+
+          </Row>
+
+        </Grid>
 
       </div>
     );

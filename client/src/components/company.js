@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Row, Grid } from 'react-bootstrap';
 import axios from 'axios';
 import MyNavbar from './homeNavbar';
 import { Circle } from 'rc-progress';
-import { PieChart, Pie, Legend, Tooltip } from 'recharts';
+import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 import '../style.css';
 
 export default class Company extends Component {
@@ -75,99 +75,102 @@ export default class Company extends Component {
       <div className="company">
         <MyNavbar />
 
-        <Col sm={12} style={{ backgroundColor: "", height: "150px" }}>
-          <img src={ avatarUrl } alt={ this.state.companyData.tag }
-            className="center-block" />
-        </Col>
+        <Grid style={{  backgroundColor: "#EAE3EA" }}>
 
-        <Col sm={12} style={{ backgroundColor: "white", height: "300px" }}>
+          <Row>
+            <Col xs={12} md={12} style={{ backgroundColor: "#EAE3EA", paddingBottom: "30px" }}>
+              <img src={ avatarUrl } alt={ this.state.companyData.tag }
+                className="center-block" />
+            </Col>
+          </Row>
 
-          <Col sm={3}>
-            <h2 align="center">Inclusiveness</h2>
-            <h3 align="center">{inclusivenessRating}/10</h3>
-            <div align="center">
-              <Circle
-                percent={ inclusivenessRating * 10 }
-                strokeWidth="10"
-                trailWidth="10"
-                height={ 150 }
-                strokeColor="#A4D555"
-              />
-            </div>
-          </Col>
+          <Row style={{ backgroundColor: "white", paddingBottom: "30px" }}>
 
-          <Col sm={3}>
-            <h2 align="center">Compensation</h2>
-            <h3 align="center">{ compensationRating }/10</h3>
-            <div align="center">
-              <Circle
-                percent={ compensationRating* 10 }
-                strokeWidth="10"
-                trailWidth="10"
-                height={ 150 }
-                strokeColor="#A4D555"
-              />
-             </div>
-          </Col>
+            <Col xs={6} md={3}>
+              <h2 align="center">Inclusiveness</h2>
+              <h3 align="center">{inclusivenessRating}/10</h3>
+              <div align="center">
+                <Circle
+                  percent={ inclusivenessRating * 10 }
+                  strokeWidth="10"
+                  trailWidth="10"
+                  height={ 150 }
+                  strokeColor="#A4D555"
+                />
+              </div>
+            </Col>
 
-          <Col sm={3}>
-            <h2 align="center">Balance</h2>
-            <h3 align="center">{balanceRating}/10</h3>
-            <div align="center">
-              <Circle
-                percent={ balanceRating * 10 }
-                strokeWidth="10"
-                trailWidth="10"
-                height={ 150 }
-                strokeColor="#A4D555"
-              />
-            </div>
-          </Col>
+            <Col xs={6} md={3}>
+              <h2 align="center">Compensation</h2>
+              <h3 align="center">{ compensationRating }/10</h3>
+              <div align="center">
+                <Circle
+                  percent={ compensationRating* 10 }
+                  strokeWidth="10"
+                  trailWidth="10"
+                  height={ 150 }
+                  strokeColor="#A4D555"
+                />
+              </div>
+            </Col>
 
-
-          <Col sm={3}>
-            <h2 align="center">Advancement</h2>
-            <h3 align="center">{advancementRating}/10</h3>
-            <div align="center">
-              <Circle
-                percent={ advancementRating * 10 }
-                strokeWidth="10"
-                trailWidth="10"
-                height={ 150 }
-                strokeColor="#A4D555"
-              />
-            </div>
-          </Col>
-
-        </Col>
-
-        <Col sm={12} style={{ backgroundColor: "", height: "75px" }}>
-
-        </Col>
-
-        <Col sm={6} style={{ border: "2px solid #EAE3EA", paddingTop: "50px", height: "600px" }}>
-
-          <div align="center">
-            <h2 align="center">From the past 100 tweets about { this.state.companyData.tag },
-              { " " + this.state.sentimentData.positive } tweets were perceived as positive.</h2>
-            <PieChart width={800} height={400}>
-              <Pie isAnimationActive={false} data={data} dataKey={"value"} nameKey={"name"}
-                cx={200} cy={200} outerRadius={120} label/>
-              <Tooltip />
-            </PieChart>
-          </div>
-
-        </Col>
-
-        <Col sm={6} style={{ border: "2px solid #EAE3EA", paddingTop: "50px", height: "600px" }}>
-          <h2 align="center">Most popular tweet involving { this.state.companyData.tag + " " }
-            from the past seven days.</h2>
-          <div align="center" id="tweet-container" className="tweet-container">
-            { this.renderTweet() }
-          </div>
+            <Col xs={6} md={3}>
+              <h2 align="center">Balance</h2>
+              <h3 align="center">{balanceRating}/10</h3>
+              <div align="center">
+                <Circle
+                  percent={ balanceRating * 10 }
+                  strokeWidth="10"
+                  trailWidth="10"
+                  height={ 150 }
+                  strokeColor="#A4D555"
+                />
+              </div>
+            </Col>
 
 
-        </Col>
+            <Col xs={6} md={3}>
+              <h2 align="center">Advancement</h2>
+              <h3 align="center">{advancementRating}/10</h3>
+              <div align="center">
+                <Circle
+                  percent={ advancementRating * 10 }
+                  strokeWidth="10"
+                  trailWidth="10"
+                  height={ 150 }
+                  strokeColor="#A4D555"
+                />
+              </div>
+            </Col>
+
+          </Row>
+
+          <Row style={{ paddingTop: "50px" }}>
+
+            <Col xs={6} md={6}>
+              <h2 align="center">From the past 100 tweets about { this.state.companyData.tag },
+                { " " + this.state.sentimentData.positive } tweets were perceived as positive.</h2>
+              <div className="pie-container">
+                <ResponsiveContainer>
+                  <PieChart>
+                    <Pie isAnimationActive={true} data={data} dataKey={"value"} nameKey={"name"} label/>
+                    <Tooltip />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+            </Col>
+
+            <Col xs={6} md={6}>
+              <h2 align="center">Most popular tweet involving { this.state.companyData.tag + " " }
+                from the past seven days.</h2>
+              <div align="center" id="tweet-container" className="tweet-container">
+                { this.renderTweet() }
+              </div>
+            </Col>
+
+          </Row>
+
+        </Grid>
 
       </div>
     );

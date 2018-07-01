@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Col, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
+import { Button, Form, Col, Row, Grid, FormGroup, FormControl, ControlLabel} from "react-bootstrap";
 import axios from 'axios';
 import '../style.css';
 
@@ -43,49 +43,61 @@ export default class SignUp extends Component {
     return (
       <div className="signup">
 
-        <h1 align="center" className="login-header">Sign up for Ethical Employer</h1>
+        <Grid>
 
-        <Form horizontal className="signup-form" onSubmit={this.handleSubmit}>
+          <Row>
 
-          <FormGroup controlId="email" bsSize="large">
-            <Col smOffset={1} sm={10}>
-              <Col componentClass={ControlLabel} sm={3}>
-                Email
-              </Col>
-              <FormControl
-                type="email"
-                placeholder="Email"
-                autoFocus
-                value={this.state.email}
-                onChange={this.handleChange}
-                />
-            </Col>
-          </FormGroup>
+            <h1 align="center" className="login-header">Sign up for Ethical Employer</h1>
 
-          <FormGroup controlId="password" bsSize="large">
+          </Row>
 
-            <Col smOffset={1} sm={10}>
-              <Col componentClass={ControlLabel} sm={4}>
-                Password
-              </Col>
-              <FormControl
-                type="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                />
-            </Col>
-          </FormGroup>
+          <Row>
 
-          <FormGroup>
-            <Col smOffset={3} sm={6}>
-              <Button block type="submit" disabled={!this.validateForm()} bsStyle="danger" className="submit-button">
-                Create Account
-              </Button>
-            </Col>
-          </FormGroup>
+            <Form horizontal className="signup-form" onSubmit={this.handleSubmit}>
 
-        </Form>;
+              <FormGroup controlId="email" bsSize="large">
+                <Col xsOffset={1} xs={10} mdOffset={1} md={10}>
+                  <Col componentClass={ControlLabel} xs={3} md={3}>
+                    Email
+                  </Col>
+                  <FormControl
+                    type="email"
+                    placeholder="Email"
+                    autoFocus
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="password" bsSize="large">
+
+                <Col xsOffset={1} xs={10} mdOffset={1} md={10}>
+                  <Col componentClass={ControlLabel} xs={4} md={4}>
+                    Password
+                  </Col>
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col xsOffset={3} xs={6} mdOffset={3} md={6}>
+                  <Button block type="submit" disabled={!this.validateForm()} bsStyle="danger" className="submit-button">
+                    Create Account
+                  </Button>
+                </Col>
+              </FormGroup>
+
+            </Form>
+
+          </Row>
+
+        </Grid>
 
       </div>
     );

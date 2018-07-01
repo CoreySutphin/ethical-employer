@@ -132,7 +132,7 @@ input {
 }
 .company {
   min-width: 480px;
-  height: 100vh;
+  height: 100%;
   background-color: #EAE3EA;
   color: black;
 }
@@ -154,4 +154,10 @@ input {
 }
 .tweet-container {
   padding-top: 25px;
+  height: 300px;
+  width: 100%;
+}
+.pie-container {
+  height: 300px;
+  width: 100%;
 }

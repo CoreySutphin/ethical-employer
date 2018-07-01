@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, Form, Col, Checkbox, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Button, Form, Col, Row, Grid, FormGroup, FormControl, ControlLabel} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../style.css';
 
@@ -56,52 +56,64 @@ export default class Login extends Component {
     return (
       <div className="login">
 
-        <h1 align="center" className="login-header">Log in to Ethical Employer</h1>
+        <Grid>
 
-        <Form horizontal className="login-form" onSubmit={this.handleSubmit}>
+          <Row>
 
-          <FormGroup controlId="email" bsSize="large">
-            <Col smOffset={1} sm={10}>
-              <Col componentClass={ControlLabel} smOffset={0} sm={3}>
-                Email
-              </Col>
-              <FormControl
-                type="email"
-                placeholder="Email"
-                autoFocus
-                value={this.state.email}
-                onChange={this.handleChange}
-                />
+            <h1 align="center" className="login-header">Log in to Ethical Employer</h1>
+
+          </Row>
+
+          <Row>
+
+            <Form horizontal className="login-form" onSubmit={this.handleSubmit}>
+
+              <FormGroup controlId="email" bsSize="large">
+                <Col xsOffset={1} xs={10} mdOffset={1} md={10}>
+                  <Col componentClass={ControlLabel} xs={3} md={3}>
+                    Email
+                  </Col>
+                  <FormControl
+                    type="email"
+                    placeholder="Email"
+                    autoFocus
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup controlId="password" bsSize="large">
+                <Col xsOffset={1} xs={10} mdOffset={1} md={10}>
+                  <Col componentClass={ControlLabel} xs={4} md={4}>
+                    Password
+                  </Col>
+                  <FormControl
+                    type="password"
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                  />
+                </Col>
+              </FormGroup>
+
+              <FormGroup>
+                <Col xsOffset={3} xs={6} mdOffset={3} md={6}>
+                  <Button block type="submit" disabled={!this.validateForm()} bsStyle="danger">
+                    Sign in
+                  </Button>
+                </Col>
+              </FormGroup>
+
+            </Form>
+
+            <Col xsOffset={4} xs={4} mdOffset={4} md={4} className="login-footer">
+              <Link to="/signup" textalign="center">Or create a new account</Link>
             </Col>
-          </FormGroup>
 
-          <FormGroup controlId="password" bsSize="large">
-            <Col smOffset={1} sm={10}>
-              <Col componentClass={ControlLabel} smOffset={0} sm={4}>
-                Password
-              </Col>
-              <FormControl
-                type="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.handleChange}
-                />
-            </Col>
-          </FormGroup>
+          </Row>
 
-          <FormGroup>
-            <Col smOffset={3} sm={6}>
-              <Button block type="submit" disabled={!this.validateForm()} bsStyle="danger">
-                Sign in
-              </Button>
-            </Col>
-          </FormGroup>
-
-        </Form>
-
-        <Col smOffset={4} sm={4} className="login-footer">
-          <Link to="/signup" textalign="center">Or create a new account</Link>
-        </Col>
+        </Grid>
 
       </div>
     );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Navbar, Button, Nav, NavItem } from 'react-bootstrap';
-import Login from './login';
 import "../style.css"
 
 export default class HomeNavbar extends Component {
